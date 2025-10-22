@@ -6,8 +6,7 @@ Um aplicativo de timer e estatísticas moderno para speedcubing, construído com
 
 * **Cronômetro Preciso:** Início e parada por toque (ou pressionamento de tela) com alta precisão milissegundos.
 * **Tempo de Inspeção (15s):** Inclui uma contagem regressiva de 15 segundos antes do início do timer, conforme as regras da WCA (World Cube Association).
-* **Seleção de Puzzles WCA:** Suporte para todos os principais *puzzles* da WCA, incluindo 2x2 a 7x7, Pyraminx, Megaminx, Skewb, Square-1 e Clock.
-* **Embaralhamento Específico:** Geração de *scrambles* para o *puzzle* selecionado, com persistência do último *scramble* por tipo de *puzzle*.
+* **Embaralhamento Específico:** Geração de *scramble* oficial da WCA.
 * **Métricas de Desempenho:** Tela dedicada para calcular a Média de 5 (Ao5) e a Média de 12 (Ao12), além de estatísticas gerais.
 * **Metrônomo Opcional:** Recurso de metrônomo configurável por BPM (batidas por minuto) para auxiliar na prática de F2L e *lookahead*.
 * **Tema Escuro:** Alternância entre tema claro e escuro.
