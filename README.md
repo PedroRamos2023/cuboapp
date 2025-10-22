@@ -21,8 +21,7 @@ Este projeto utiliza o *stack* **React Native** com **Expo**.
 | `expo-av` | `npx expo install expo-av` | Módulo de áudio para o Metrônomo. |
 | `@react-native-community/slider` | `npx expo install @react-native-community/slider` | Slider de ajuste de BPM na Configuração. |
 | `@react-native-async-storage/async-storage` | `npx expo install @react-native-async-storage/async-storage` | Persistência de configurações e tempos (salvamento local). |
-| `rubiks-cube-scramble` | `npm install rubiks-cube-scramble` | Geração de sequências de *scramble* para diversos *puzzles*. |
-| `@react-native-picker/picker` | `npx expo install @react-native-picker/picker` | Componente Picker para seleção de *puzzles*. |
+| `rubiks-cube-scramble` | `npm install rubiks-cube-scramble` | Geração de sequências de *scramble*. |
 
 ## 🛠️ Instalação e Execução
 
