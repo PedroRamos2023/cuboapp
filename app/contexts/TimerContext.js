@@ -8,8 +8,54 @@ export function TimerProvider({ children }) {
   const [tempo, setTempo] = useState(0);
   const [ativo, setAtivo] = useState(false);
   // O array que armazena os tempos temporariamente (em memória)
-  const [temposSalvos, setTemposSalvos] = useState([]); 
+  const [temposSalvos, setTemposSalvos] = useState([]);
+
+// -- NOVOS ESTADOS PARA INSPEÇÃO --
+  const [inspecaoAtiva, setInspecaoAtiva] = useState(false);
+  const [tempoInspecao, setTempoInspecao] = useState(15); // 15 segundos
+  const inspecaoIntervalRef = useRef(null);
+  // ---------------------------------
+
+
   const timerRef = useRef(null);
+
+// ******* Certifique-se de que sua função formatarTempo está aqui *******
+
+  // --- NOVA LÓGICA DE INSPEÇÃO ---
+  const iniciarCronometroImediatamente = () => {
+    // Parar Inspeção
+    if (inspecaoIntervalRef.current) {
+      clearInterval(inspecaoIntervalRef.current);
+      inspecaoIntervalRef.current = null;
+    }
+    setInspecaoAtiva(false);
+    
+    // Iniciar Cronômetro Principal
+    setAtivo(true);
+  };
+  
+  const iniciarInspecao = () => {
+    if (ativo || inspecaoAtiva) return;
+
+    setTempo(0);
+    setTempoInspecao(15);
+    setInspecaoAtiva(true);
+
+    inspecaoIntervalRef.current = setInterval(() => {
+      setTempoInspecao(prevTime => {
+        if (prevTime <= 1) {
+          // Tempo de inspeção acabou, inicia o cronômetro automaticamente
+          clearInterval(inspecaoIntervalRef.current);
+          inspecaoIntervalRef.current = null;
+          setInspecaoAtiva(false);
+          setAtivo(true); 
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000); // Conta a cada segundo
+  };
+  // -----------------------------
 
   // Função para formatar o tempo (m:s:cs)
   const formatarTempo = (time) => {
@@ -62,6 +108,11 @@ export function TimerProvider({ children }) {
     salvarTempo,
     formatarTempo,
     resetarCronometro,
+// VALORES EXPOSTOS PARA INSPEÇÃO
+    inspecaoAtiva,
+    tempoInspecao,
+    iniciarInspecao,
+    iniciarCronometroImediatamente,
   };
 
   return (

@@ -17,8 +17,14 @@ export default function Cronometro() {
     salvarTempo,
     resetarCronometro,
     setTemposSalvos,
+    // NOVAS PROPRIEDADES:
+    inspecaoAtiva,
+    tempoInspecao,
+    iniciarInspecao,
+    iniciarCronometroImediatamente, // Para iniciar o tempo durante a inspeção
+    // ...
   } = useTimer();
-  const { temaEscuro } = useConfig();
+  const { temaEscuro, puzzleSelecionado } = useConfig();
   
   const [inputTempo, setInputTempo] = useState('');
   // Estado para disparar o novo Scramble
@@ -47,16 +53,31 @@ export default function Cronometro() {
     Alert.alert('Sucesso', `Tempo de ${inputTempo} segundos adicionado.`);
   };
 
-  // Lógica principal de toque (Gera novo scramble ao salvar)
+// Lógica principal de toque (NOVA IMPLEMENTAÇÃO)
   const handleTouch = () => {
     if (ativo) {
-      salvarTempo(); // Para e salva o tempo
-      triggerNovoScramble(); // Dispara novo embaralhamento
+      // 1. Cronômetro Ativo -> Salva Tempo
+      salvarTempo(); 
+      triggerNovoScramble();
+    } else if (inspecaoAtiva) {
+      // 2. Inspeção Ativa -> Inicia o Cronômetro Principal Imediatamente (Spacebar ou Toque)
+      iniciarCronometroImediatamente(); 
     } else {
-      resetarCronometro(); // Zera o tempo
-      toggleCronometro(); // Inicia
+      // 3. Parado (00:00:00) -> Inicia a Inspeção de 15s
+      iniciarInspecao();
     }
   };
+
+  // Condição para mostrar o tempo (NOVA LÓGICA DE EXIBIÇÃO)
+  const mostrarUltimoTempo = !ativo && temposSalvos.length > 0;
+  
+  const tempoDisplay = inspecaoAtiva 
+    ? tempoInspecao.toFixed(0) // Mostra 15, 14, 13...
+    : ativo
+      ? formatarTempo(tempo) 
+      : mostrarUltimoTempo 
+        ? formatarTempo(temposSalvos[0].tempo) 
+        : formatarTempo(tempo); // 00:00:00 se não houver tempos
 
   // Estilos Dinâmicos
   const containerStyle = [styles.container, temaEscuro && styles.containerEscuro];
@@ -64,14 +85,6 @@ export default function Cronometro() {
   const listaItemStyle = [styles.listaItem, temaEscuro && styles.textoClaro];
 
   const scrambleColor = temaEscuro ? styles.textoClaro : styles.textoEscuro;
-
-  // Condição para mostrar o último tempo salvo
-  const mostrarUltimoTempo = !ativo && temposSalvos.length > 0;
-  const tempoExibido = ativo 
-    ? formatarTempo(tempo) 
-    : mostrarUltimoTempo 
-      ? formatarTempo(temposSalvos[0].tempo) 
-      : formatarTempo(tempo);
 
   return (
     // Usa KeyboardAvoidingView para evitar que o teclado cubra os inputs (melhor prática)
@@ -86,11 +99,20 @@ export default function Cronometro() {
         <Scrambler style={scrambleColor} trigger={scrambleTrigger} />
       </View>
 
-      {/* ÁREA PRINCIPAL DO CRONÔMETRO (Ocupa o centro da tela) */}
+    // ATUALIZE A EXIBIÇÃO DO TEMPO:
       <TouchableOpacity style={styles.areaCronometro} onPress={handleTouch}>
-        <Text style={tempoStyle}>{tempoExibido}</Text>
+          <Text 
+            style={[
+              styles.tempo, 
+              temaEscuro && styles.textoClaro, 
+              inspecaoAtiva && styles.tempoInspecao // Aplica o novo estilo durante a inspeção
+            ]}
+          >
+            {tempoDisplay}
+          </Text>
       </TouchableOpacity>
-      
+      // ...
+  
       <Metronomo />
 
       {/* Botão de Reiniciar */}
@@ -225,5 +247,10 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 12,
     fontWeight: 'bold',
+  },
+  tempoInspecao: {
+      fontSize: 80, 
+      fontWeight: 'bold',
+      color: '#FF4136', // Uma cor chamativa (Vermelho) para a contagem
   },
 });

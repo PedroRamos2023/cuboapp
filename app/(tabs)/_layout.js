@@ -2,7 +2,7 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
 import { useConfig } from '../contexts/ConfigContext';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons'; // Certifique-se de que o expo-vector-icons está instalado!
+import { Entypo, MaterialIcons, Ionicons } from '@expo/vector-icons';
 
 export default function TabLayout() {
   const { temaEscuro } = useConfig();
@@ -45,6 +45,17 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      {/* -- ENCAIXE ESTA NOVA ABA AQUI -- */}
+      <Tabs.Screen
+        name="media" // Corresponde ao arquivo app/(tabs)/media.js
+        options={{
+          title: 'Média',
+          tabBarIcon: ({ color }) => <MaterialIcons name="insights" color={color} size={24} />,
+          headerShown: true, // Para mostrar o título "Média"
+        }}
+      />
+      {/* ------------------------------- */}
 
       {/* 2. Aba de Configurações (configuracoes.js) */}
       <Tabs.Screen

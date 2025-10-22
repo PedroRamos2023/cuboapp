@@ -1,50 +1,44 @@
-# Welcome to your Expo app 👋
+# CuboAppTimer
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Um aplicativo de timer e estatísticas moderno para speedcubing, construído com React Native (Expo) e focado em usabilidade, precisão e personalização.
 
-## Get started
+## 🚀 Funcionalidades Principais
 
-1. Install dependencies
+* **Cronômetro Preciso:** Início e parada por toque (ou pressionamento de tela) com alta precisão milissegundos.
+* **Tempo de Inspeção (15s):** Inclui uma contagem regressiva de 15 segundos antes do início do timer, conforme as regras da WCA (World Cube Association).
+* **Seleção de Puzzles WCA:** Suporte para todos os principais *puzzles* da WCA, incluindo 2x2 a 7x7, Pyraminx, Megaminx, Skewb, Square-1 e Clock.
+* **Embaralhamento Específico:** Geração de *scrambles* para o *puzzle* selecionado, com persistência do último *scramble* por tipo de *puzzle*.
+* **Métricas de Desempenho:** Tela dedicada para calcular a Média de 5 (Ao5) e a Média de 12 (Ao12), além de estatísticas gerais.
+* **Metrônomo Opcional:** Recurso de metrônomo configurável por BPM (batidas por minuto) para auxiliar na prática de F2L e *lookahead*.
+* **Tema Escuro:** Alternância entre tema claro e escuro.
 
-   ```bash
-   npm install
-   ```
+## ⚙️ Tecnologias e Dependências
 
-2. Start the app
+Este projeto utiliza o *stack* **React Native** com **Expo**.
 
-   ```bash
-   npx expo start
-   ```
+| Dependência | Comando de Instalação | Uso Principal |
+| :--- | :--- | :--- |
+| `expo-router` | `npx expo install expo-router` | Sistema de navegação por abas. |
+| `expo-av` | `npx expo install expo-av` | Módulo de áudio para o Metrônomo. |
+| `@react-native-community/slider` | `npx expo install @react-native-community/slider` | Slider de ajuste de BPM na Configuração. |
+| `@react-native-async-storage/async-storage` | `npx expo install @react-native-async-storage/async-storage` | Persistência de configurações e tempos (salvamento local). |
+| `rubiks-cube-scramble` | `npm install rubiks-cube-scramble` | Geração de sequências de *scramble* para diversos *puzzles*. |
+| `@react-native-picker/picker` | `npx expo install @react-native-picker/picker` | Componente Picker para seleção de *puzzles*. |
 
-In the output, you'll find options to open the app in a
+## 🛠️ Instalação e Execução
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Para configurar e executar o projeto localmente:
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### 1. Pré-requisitos
 
-## Get a fresh project
+* **Node.js e npm (ou Yarn):** Certifique-se de ter o Node.js (versão LTS recomendada) instalado, pois ele inclui o `npm` e o `npx`.
+* **Expo Go App:** Instale o aplicativo **Expo Go** no seu dispositivo móvel (Android ou iOS) para testar.
 
-When you're ready, run:
+### 2. Instalação de Dependências
+
+Navegue até o diretório do projeto e execute o comando para instalar todas as dependências listadas no `package.json`:
 
 ```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+npm install 
+# ou
+yarn install
